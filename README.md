@@ -2,91 +2,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Your Wishes Will Come True</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';">
+    <title>QuizIt!</title>
     <style>
-        /* CSS for styling */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-            min-height: 100vh; /* Ensure body takes full viewport height */
+            background-color: #1a2a44; /* Dark blue like your image */
+            color: white;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
         header {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-        }
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
             padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            flex: 1; /* Allow container to grow and push footer down */
         }
         h1 {
-            color: #007BFF;
+            font-size: 4em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
-        .contact-form {
-            margin-top: 20px;
+        .buttons {
+            margin: 20px 0;
         }
-        .contact-form label {
-            display: block;
-            margin: 10px 0 5px;
-        }
-        .contact-form input, .contact-form textarea {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .contact-form button {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 20px;
+        .buttons button {
+            background-color: #fff;
+            color: #1a2a44;
             border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .contact-form button:hover {
-            background-color: #0056b3;
-        }
-        .motivate-btn {
-            background-color: #28a745;
-            color: white;
             padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
+            margin: 5px;
+            border-radius: 5px;
             cursor: pointer;
-            margin-top: 20px;
-            margin-bottom: 40px; /* Add space below button to prevent footer overlap */
+            font-size: 1em;
         }
-        .motivate-btn:hover {
-            background-color: #218838;
+        .buttons button:hover {
+            background-color: #ddd;
+        }
+        .cartoon-image {
+            max-width: 80%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         footer {
-            text-align: center;
             padding: 20px;
             background-color: #007BFF;
             color: white;
             width: 100%;
-            /* Removed position: fixed to prevent overlap */
+            text-align: center;
+            margin-top: auto;
         }
         footer a {
             color: white;
@@ -100,64 +72,24 @@
 </head>
 <body>
     <header>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-        </nav>
+        <h1>QuizIt!</h1>
     </header>
 
     <div class="container">
-        <h1>Welcome to My Website</h1>
-        <p>You're about to get rich by the end of this year.</p>
-
-        <!-- Contact Form -->
-        <div class="contact-form">
-            <h2>Contact Us</h2>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-            <button type="submit" onclick="submitForm()">Send Message</button>
+        <div class="buttons">
+            <button>Common Sense Quiz</button>
+            <button>Challenge The Foodie in You</button>
+            <button>Quench Your Sports Thirst</button>
         </div>
 
-        <!-- Motivational Button -->
-        <button class="motivate-btn" onclick="showMotivation()">Get a Motivational Quote</button>
+        <!-- Placeholder for cartoon quiz image -->
+        <img src="https://via.placeholder.com/800x400?text=Cartoon+Quiz+Image" alt="Cartoon Quiz Image" class="cartoon-image">
     </div>
 
     <footer>
-        <p>© 2025 All Your Wishes Will Come True</p>
+        <p>© 2025 QuizIt!</p>
         <a href="https://twitter.com">Twitter</a>
         <a href="https://facebook.com">Facebook</a>
     </footer>
-
-    <script>
-        // JavaScript for interactivity
-        function showMotivation() {
-            const quotes = [
-                "Believe in yourself, and all your dreams will come true!",
-                "Success is just one step away—keep going!",
-                "Your future is bright, seize the day!"
-            ];
-            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-            alert(randomQuote);
-        }
-
-        function submitForm() {
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            if (name && email && message) {
-                alert(`Thank you, ${name}! Your message has been received.`);
-                document.getElementById('name').value = '';
-                document.getElementById('email').value = '';
-                document.getElementById('message').value = '';
-            } else {
-                alert('Please fill out all fields.');
-            }
-        }
-    </script>
 </body>
 </html>
