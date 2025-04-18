@@ -11,11 +11,10 @@
             padding: 0;
             background-color: #1a2a44;
             color: white;
-            min-height: 100vh;
+            min-height: 100vh; /* Ensure body takes full viewport height */
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
+            justify-content: space-between; /* Push footer to bottom */
         }
         header {
             padding: 20px;
@@ -47,7 +46,7 @@
             margin-bottom: 20px;
         }
         .container {
-            flex: 1;
+            flex: 1 0 auto; /* Allow container to grow but not shrink beyond content */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -58,7 +57,7 @@
             color: white;
             width: 100%;
             text-align: center;
-            margin-top: auto;
+            flex-shrink: 0; /* Prevent footer from shrinking */
         }
         footer a {
             color: white;
