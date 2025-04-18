@@ -337,7 +337,7 @@
                 saveScores();
                 alert(`Quiz over, ${currentUser}! Your final score is ${score} points.`);
                 displayLeaderboard(currentCategory);
-                modal.style.display = 'none';
+                modal.style.display = 'flex';
                 currentQuestionIndex = 0; // Reset for next quiz
                 return;
             }
