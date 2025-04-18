@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -137,6 +136,12 @@
             <button onclick="startQuiz('common')">Common Sense Quiz</button>
             <button onclick="startQuiz('food')">Challenge The Foodie in You</button>
             <button onclick="startQuiz('sports')">Quench Your Sports Thirst</button>
+            <button onclick="startQuiz('animalKingdom')">Animal Kingdom Quiz</button>
+            <button onclick="startQuiz('indianCinema')">Indian Cinema Quiz</button>
+            <button onclick="startQuiz('foodTravel')">Food and Travel Quiz</button>
+            <button onclick="startQuiz('indianCompanies')">Indian Companies Quiz</button>
+            <button onclick="startQuiz('stockMarket')">Stock Market Quiz</button>
+            <button onclick="startQuiz('scienceTech')">Science and Technology Quiz</button>
         </div>
 
         <div class="leaderboard">
@@ -144,6 +149,12 @@
             <div id="commonLeaderboard"></div>
             <div id="foodLeaderboard"></div>
             <div id="sportsLeaderboard"></div>
+            <div id="animalKingdomLeaderboard"></div>
+            <div id="indianCinemaLeaderboard"></div>
+            <div id="foodTravelLeaderboard"></div>
+            <div id="indianCompaniesLeaderboard"></div>
+            <div id="stockMarketLeaderboard"></div>
+            <div id="scienceTechLeaderboard"></div>
         </div>
 
         <img src="https://via.placeholder.com/800x400?text=Cartoon+Quiz+Image" alt="Cartoon Quiz Image" class="cartoon-image">
@@ -177,7 +188,13 @@
         const scores = {
             common: {},
             food: {},
-            sports: {}
+            sports: {},
+            animalKingdom: {},
+            indianCinema: {},
+            foodTravel: {},
+            indianCompanies: {},
+            stockMarket: {},
+            scienceTech: {}
         };
 
         // Load scores from localStorage
@@ -197,9 +214,9 @@
 
         // Update leaderboards display
         function updateLeaderboards() {
-            ['common', 'food', 'sports'].forEach(category => {
+            ['common', 'food', 'sports', 'animalKingdom', 'indianCinema', 'foodTravel', 'indianCompanies', 'stockMarket', 'scienceTech'].forEach(category => {
                 const leaderboard = document.getElementById(`${category}Leaderboard`);
-                leaderboard.innerHTML = `<h3>${category.charAt(0).toUpperCase() + category.slice(1)} Quiz</h3><ul>`;
+                leaderboard.innerHTML = `<h3>${category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1').trim()} Quiz</h3><ul>`;
                 const categoryScores = Object.entries(scores[category]).sort((a, b) => b[1] - a[1]);
                 categoryScores.slice(0, 5).forEach(([name, score], index) => {
                     leaderboard.innerHTML += `<li>${index + 1}. ${name}: ${score} points</li>`;
@@ -245,6 +262,78 @@
                 { question: "Which sport is played at Wimbledon?", options: ["cricket", "tennis", "rugby", "golf"], answer: "tennis" },
                 { question: "How long is an Olympic swimming pool (in meters)?", options: ["25", "50", "75", "100"], answer: "50" },
                 { question: "In which sport do you perform a 'slam dunk'?", options: ["volleyball", "basketball", "netball", "handball"], answer: "basketball" }
+            ],
+            animalKingdom: [
+                { question: "Which animal is known as the 'king of the jungle'?", options: ["lion", "tiger", "elephant", "bear"], answer: "lion" },
+                { question: "What is the largest land animal?", options: ["elephant", "giraffe", "hippopotamus", "rhinoceros"], answer: "elephant" },
+                { question: "Which bird is known for its black and white stripes?", options: ["penguin", "zebra finch", "ostrich", "eagle"], answer: "penguin" },
+                { question: "What is the fastest land animal?", options: ["cheetah", "lion", "horse", "deer"], answer: "cheetah" },
+                { question: "Which animal has a body covered with scales?", options: ["snake", "dog", "cat", "rabbit"], answer: "snake" },
+                { question: "What is the largest species of shark?", options: ["great white", "whale shark", "tiger shark", "hammerhead"], answer: "whale shark" },
+                { question: "Which animal is known for its black and white fur and lives in China?", options: ["panda", "zebra", "skunk", "lemur"], answer: "panda" },
+                { question: "What type of animal is a jellyfish?", options: ["cnidarian", "mammal", "reptile", "amphibian"], answer: "cnidarian" },
+                { question: "Which animal is famous for its long neck?", options: ["giraffe", "camel", "llama", "ostrich"], answer: "giraffe" },
+                { question: "What is the only mammal that can fly?", options: ["bat", "bird", "flying squirrel", "pterodactyl"], answer: "bat" }
+            ],
+            indianCinema: [
+                { question: "Which year was the first Indian feature film released?", options: ["1913", "1920", "1901", "1930"], answer: "1913" },
+                { question: "Who directed the film 'Sholay'?", options: ["Raj Kapoor", "Ramesh Sippy", "Yash Chopra", "Satyajit Ray"], answer: "ramesh sippy" },
+                { question: "Which actor is known as the 'Shahenshah of Bollywood'?", options: ["Amitabh Bachchan", "Shah Rukh Khan", "Aamir Khan", "Salman Khan"], answer: "amitabh bachchan" },
+                { question: "What was the first Indian film to win an Oscar?", options: ["Mother India", "Salaam Bombay!", "Lagaan", "Slumdog Millionaire"], answer: "slumdog millionaire" },
+                { question: "Which Indian filmmaker is famous for the 'Apu Trilogy'?", options: ["Satyajit Ray", "Mrinal Sen", "Ritwik Ghatak", "Guru Dutt"], answer: "satyajit ray" },
+                { question: "Which film introduced the song 'Chaiyya Chaiyya'?", options: ["Dil Se", "Dilwale Dulhania Le Jayenge", "Kuch Kuch Hota Hai", "Kabhi Khushi Kabhie Gham"], answer: "dil se" },
+                { question: "Who played the lead role in 'Mughal-e-Azam'?", options: ["Dilip Kumar", "Rajesh Khanna", "Dev Anand", "Shammi Kapoor"], answer: "dilip kumar" },
+                { question: "Which actress debuted in Bollywood with 'Om Shanti Om'?", options: ["Priyanka Chopra", "Deepika Padukone", "Katrina Kaif", "Aishwarya Rai"], answer: "deepika padukone" },
+                { question: "Which film features the character 'Devdas'?", options: ["Devdas", "Parineeta", "Umrao Jaan", "Pakeezah"], answer: "devdas" },
+                { question: "Who composed the music for 'Roja'?", options: ["A.R. Rahman", "Ilaiyaraaja", "Shankar-Ehsaan-Loy", "Vishal-Shekhar"], answer: "a.r. rahman" }
+            ],
+            foodTravel: [
+                { question: "Which country is famous for paella?", options: ["Italy", "Spain", "France", "Greece"], answer: "spain" },
+                { question: "What is the capital city of Thailand?", options: ["Bangkok", "Phuket", "Chiang Mai", "Pattaya"], answer: "bangkok" },
+                { question: "Which spice is a key ingredient in curry?", options: ["saffron", "turmeric", "oregano", "basil"], answer: "turmeric" },
+                { question: "What is the famous landmark in Paris?", options: ["Eiffel Tower", "Big Ben", "Colosseum", "Statue of Liberty"], answer: "eiffel tower" },
+                { question: "Which cuisine is known for sushi?", options: ["Chinese", "Japanese", "Korean", "Thai"], answer: "japanese" },
+                { question: "What desert country is known for its pyramids?", options: ["Mexico", "Egypt", "Peru", "India"], answer: "egypt" },
+                { question: "Which fruit is a staple in Hawaiian poke?", options: ["pineapple", "mango", "banana", "avocado"], answer: "avocado" },
+                { question: "What is the largest city in Australia?", options: ["Sydney", "Melbourne", "Perth", "Brisbane"], answer: "sydney" },
+                { question: "Which dish is made from fermented cabbage?", options: ["sauerkraut", "kimchi", "pickles", "relish"], answer: "kimchi" },
+                { question: "What Italian city is famous for its canals?", options: ["Rome", "Venice", "Florence", "Milan"], answer: "venice" }
+            ],
+            indianCompanies: [
+                { question: "Which company is known for the brand 'Amul'?", options: ["HUL", "Amul", "Nestle", "Dabur"], answer: "amul" },
+                { question: "What is the parent company of Flipkart?", options: ["Amazon", "Walmart", "Reliance", "Tata"], answer: "walmart" },
+                { question: "Which Indian company is a major IT service provider?", options: ["TCS", "HDFC", "Reliance", "Infosys"], answer: "tcs" },
+                { question: "What company produces the 'Fair & Lovely' brand?", options: ["HUL", "P&G", "L'Oréal", "Godrej"], answer: "hul" },
+                { question: "Which company is the largest steel producer in India?", options: ["Tata Steel", "JSW Steel", "SAIL", "Jindal Steel"], answer: "tata steel" },
+                { question: "What company owns the 'Parle-G' biscuit brand?", options: ["Britannia", "Parle", "ITC", "Nestle"], answer: "parle" },
+                { question: "Which Indian company is known for its luxury hotels?", options: ["Oberoi", "Taj", "Leela", "ITC"], answer: "taj" },
+                { question: "What company manufactures the 'Hero' bicycles?", options: ["Hero Cycles", "Bajaj", "TVS", "Honda"], answer: "hero cycles" },
+                { question: "Which company is a leader in Indian two-wheeler manufacturing?", options: ["Hero MotoCorp", "Bajaj Auto", "TVS", "Royal Enfield"], answer: "hero motocorp" },
+                { question: "What company is known for the 'Dettol' brand?", options: ["Reckitt Benckiser", "HUL", "P&G", "Colgate"], answer: "reckitt benckiser" }
+            ],
+            stockMarket: [
+                { question: "Which index tracks the Indian stock market?", options: ["S&P 500", "NIFTY 50", "Dow Jones", "FTSE"], answer: "nifty 50" },
+                { question: "What is the main stock exchange in India?", options: ["NYSE", "BSE", "NASDAQ", "LSE"], answer: "bse" },
+                { question: "What does IPO stand for?", options: ["Initial Public Offering", "International Portfolio Organization", "Investment Profit Option", "Internal Private Order"], answer: "initial public offering" },
+                { question: "Which company was the first to list on NSE?", options: ["Reliance", "TCS", "Infosys", "Larsen & Toubro"], answer: "tcs" },
+                { question: "What is the minimum age to trade in the stock market in India?", options: ["16", "18", "21", "25"], answer: "18" },
+                { question: "Which regulator oversees the Indian stock market?", options: ["RBI", "SEBI", "IRDA", "NSE"], answer: "sebi" },
+                { question: "What is a stock split intended to do?", options: ["Increase share value", "Reduce share price", "Eliminate dividends", "Raise capital"], answer: "reduce share price" },
+                { question: "Which city hosts the Bombay Stock Exchange?", options: ["Delhi", "Mumbai", "Chennai", "Kolkata"], answer: "mumbai" },
+                { question: "What is the term for buying and selling stocks within the same day?", options: ["Long-term trading", "Day trading", "Swing trading", "Position trading"], answer: "day trading" },
+                { question: "Which Indian company has the highest market capitalization as of 2025?", options: ["Reliance Industries", "Tata Group", "HDFC Bank", "Infosys"], answer: "reliance industries" }
+            ],
+            scienceTech: [
+                { question: "What gas makes up most of Earth's atmosphere?", options: ["oxygen", "nitrogen", "carbon dioxide", "hydrogen"], answer: "nitrogen" },
+                { question: "What is the primary source of energy for the solar system?", options: ["moon", "sun", "earth core", "stars"], answer: "sun" },
+                { question: "Which element has the atomic number 1?", options: ["helium", "hydrogen", "oxygen", "carbon"], answer: "hydrogen" },
+                { question: "What technology is used in touchscreens?", options: ["LCD", "Capacitive", "LED", "Plasma"], answer: "capacitive" },
+                { question: "Which planet is known as the Red Planet?", options: ["Venus", "Mars", "Jupiter", "Saturn"], answer: "mars" },
+                { question: "What is the main component of a CPU?", options: ["RAM", "Motherboard", "Processor", "Hard Drive"], answer: "processor" },
+                { question: "Which gas is most responsible for the greenhouse effect?", options: ["oxygen", "carbon dioxide", "nitrogen", "argon"], answer: "carbon dioxide" },
+                { question: "What is the unit of electrical resistance?", options: ["volt", "ohm", "ampere", "watt"], answer: "ohm" },
+                { question: "Which invention is credited to Alexander Graham Bell?", options: ["telephone", "light bulb", "radio", "television"], answer: "telephone" },
+                { question: "What is the most abundant element in the universe?", options: ["oxygen", "hydrogen", "helium", "carbon"], answer: "hydrogen" }
             ]
         };
 
@@ -258,7 +347,7 @@
             score = 0;
             currentQuestionIndex = 0;
             console.log('Starting quiz for category:', category); // Debug log
-            alert(`Instructions: Each correct answer gives you 10 points. Each wrong answer deducts 3 points. Let's begin the ${category.charAt(0).toUpperCase() + category.slice(1)} Quiz! Click Cancel to stop the quiz.`);
+            alert(`Instructions: Each correct answer gives you 10 points. Each wrong answer deducts 3 points. Let's begin the ${category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1').trim()} Quiz! Click Cancel to stop the quiz.`);
             showQuestion();
         }
 
@@ -320,7 +409,7 @@
         }
 
         function displayLeaderboard(category) {
-            let message = `Leaderboard for ${category.charAt(0).toUpperCase() + category.slice(1)} Quiz:\n`;
+            let message = `Leaderboard for ${category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1').trim()} Quiz:\n`;
             const categoryScores = Object.entries(scores[category]).sort((a, b) => b[1] - a[1]);
             categoryScores.slice(0, 5).forEach(([name, score], index) => {
                 message += `${index + 1}. ${name}: ${score} points\n`;
