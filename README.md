@@ -171,7 +171,7 @@
         // Update leaderboards display
         function updateLeaderboards() {
             Object.keys(scores).forEach(category => {
-                const leaderboard = document.getElementById(`${category}Leaderboard`);
+                const leaderboard = document.getElementId(`${category}Leaderboard`);
                 leaderboard.innerHTML = `<h3>${category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1').trim()} Quiz</h3><ul>`;
                 const categoryScores = Object.entries(scores[category]).sort((a, b) => b[1] - a[1]);
                 categoryScores.slice(0, 5).forEach(([name, score], index) => {
@@ -287,11 +287,18 @@
             }
 
             const q = questions[index];
-            let options = q.options.join(", ");
-            let userChoice = prompt(`${q.question}\nOptions: ${options}`);
-            if (userChoice) {
-                userChoice = userChoice.toLowerCase().trim();
-                if (userChoice === q.answer) {
+            let optionsText = `A) ${q.options[0]}\nB) ${q.options[1]}\nC) ${q.options[2]}\nD) ${q.options[3]}`;
+            let userChoice = prompt(`Q: ${q.question}\n${optionsText}`).toLowerCase().trim();
+            let choiceIndex = -1;
+            switch (userChoice) {
+                case 'a': case 'a)': choiceIndex = 0; break;
+                case 'b': case 'b)': choiceIndex = 1; break;
+                case 'c': case 'c)': choiceIndex = 2; break;
+                case 'd': case 'd)': choiceIndex = 3; break;
+                default: choiceIndex = -1;
+            }
+            if (choiceIndex !== -1 && userChoice) {
+                if (q.options[choiceIndex].toLowerCase() === q.answer) {
                     score += 10;
                     alert(`Correct! +10 points. Your score is now ${score}.`);
                 } else {
@@ -299,7 +306,7 @@
                     alert(`Wrong! -3 points. The correct answer was ${q.answer}. Your score is now ${score}.`);
                 }
             } else {
-                alert("Please select an option!");
+                alert("Please select a valid option (A, B, C, or D)!");
                 askQuestion(category, questions, index);
                 return;
             }
