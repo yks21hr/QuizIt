@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #1a2a44; /* Dark blue like your image */
+            background-color: #1a2a44;
             color: white;
             min-height: 100vh;
             display: flex;
@@ -77,12 +77,11 @@
 
     <div class="container">
         <div class="buttons">
-            <button>Common Sense Quiz</button>
+            <button onclick="startCommonSenseQuiz()">Common Sense Quiz</button>
             <button>Challenge The Foodie in You</button>
             <button>Quench Your Sports Thirst</button>
         </div>
 
-        <!-- Placeholder for cartoon quiz image -->
         <img src="https://via.placeholder.com/800x400?text=Cartoon+Quiz+Image" alt="Cartoon Quiz Image" class="cartoon-image">
     </div>
 
@@ -91,5 +90,74 @@
         <a href="https://twitter.com">Twitter</a>
         <a href="https://facebook.com">Facebook</a>
     </footer>
+
+    <script>
+        let score = 0;
+        const questions = [
+            {
+                question: "What color is the sky on a clear day?",
+                answer: "blue"
+            },
+            {
+                question: "How many days are there in a week?",
+                answer: "7"
+            },
+            {
+                question: "What do you use to write on a chalkboard?",
+                answer: "chalk"
+            },
+            {
+                question: "What is the primary source of energy for Earth?",
+                answer: "sun"
+            },
+            {
+                question: "How many legs does a spider have?",
+                answer: "8"
+            },
+            {
+                question: "What do plants need to grow besides water?",
+                answer: "sunlight"
+            },
+            {
+                question: "What do you call a baby cat?",
+                answer: "kitten"
+            },
+            {
+                question: "What is the capital city of France?",
+                answer: "paris"
+            },
+            {
+                question: "What do you use to brush your teeth?",
+                answer: "toothbrush"
+            },
+            {
+                question: "How many colors are there in a rainbow?",
+                answer: "7"
+            }
+        ];
+
+        function startCommonSenseQuiz() {
+            alert("Instructions: Each correct answer gives you 10 points. Each wrong answer deducts 3 points. Let's begin!");
+            score = 0;
+            askQuestion(0);
+        }
+
+        function askQuestion(index) {
+            if (index >= questions.length) {
+                alert(`Quiz over! Your final score is ${score} points.`);
+                return;
+            }
+
+            const userAnswer = prompt(questions[index].question).toLowerCase().trim();
+            if (userAnswer === questions[index].answer) {
+                score += 10;
+                alert(`Correct! +10 points. Your score is now ${score}.`);
+            } else {
+                score -= 3;
+                alert(`Wrong! -3 points. The correct answer was ${questions[index].answer}. Your score is now ${score}.`);
+            }
+            askQuestion(index + 1);
+        }
+    </script>
 </body>
 </html>
