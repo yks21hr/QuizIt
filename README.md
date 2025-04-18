@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -315,6 +314,7 @@
             let shuffledQuestions = [...quizzes[category]];
             shuffle(shuffledQuestions);
             currentQuestions = shuffledQuestions.slice(0, 10);
+            console.log('Current Questions:', currentQuestions); // Debug log
             alert(`Instructions: Each correct answer gives you 10 points. Each wrong answer deducts 3 points. Let's begin the ${category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1').trim()} Quiz!`);
             showQuestion();
         }
@@ -347,11 +347,12 @@
                 console.error('No question available at index:', currentQuestionIndex);
                 return;
             }
-            questionElement.textContent = `Q: ${q.question}`;
-            optionA.textContent = q.options[0];
-            optionB.textContent = q.options[1];
-            optionC.textContent = q.options[2];
-            optionD.textContent = q.options[3];
+            console.log('Current Question:', q); // Debug log
+            questionElement.textContent = `Q: ${q.question || 'No question loaded'}`;
+            optionA.textContent = q.options[0] || 'No option';
+            optionB.textContent = q.options[1] || 'No option';
+            optionC.textContent = q.options[2] || 'No option';
+            optionD.textContent = q.options[3] || 'No option';
 
             form.onsubmit = (e) => {
                 e.preventDefault();
