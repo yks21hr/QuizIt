@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -342,11 +343,16 @@
             }
 
             const q = currentQuestions[currentQuestionIndex];
+            if (!q) {
+                console.error('No question available at index:', currentQuestionIndex);
+                return;
+            }
             questionElement.textContent = `Q: ${q.question}`;
             optionA.textContent = q.options[0];
             optionB.textContent = q.options[1];
             optionC.textContent = q.options[2];
             optionD.textContent = q.options[3];
+
             form.onsubmit = (e) => {
                 e.preventDefault();
                 const selectedOption = document.querySelector('input[name="option"]:checked');
@@ -366,8 +372,7 @@
                 }
             };
             modal.style.display = 'flex';
-            // Reset radio buttons
-            form.reset();
+            form.reset(); // Reset radio buttons
         }
 
         function displayLeaderboard(category) {
