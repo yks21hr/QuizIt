@@ -190,94 +190,81 @@
             return array;
         }
 
-        // Quiz questions (100+ per category)
+        // Quiz questions (100+ per category with placeholders)
         const quizzes = {
             common: [
                 { question: "What color is the sky on a clear day?", options: ["red", "blue", "green", "yellow"], answer: "blue" },
-                { question: "How many days are there in a week?", options: ["5", "7", "10", "14"], answer: "7" },
-                // ... (98 more common sense questions omitted for brevity, e.g., "What is water made of?" -> "H2O")
-                // Total: 100 questions
+                { question: "How many days are there in a week?", options: ["5", "7", "10", "14"], answer: "7" }
+                // ... (98 more placeholders as before)
             ].concat(Array(98).fill().map(() => ({ question: "Placeholder common question", options: ["a", "b", "c", "d"], answer: "a" }))),
             food: [
                 { question: "What fruit is known as the 'king of fruits'?", options: ["apple", "banana", "durian", "mango"], answer: "durian" },
-                { question: "Which spice is made from saffron crocus?", options: ["cinnamon", "saffron", "turmeric", "paprika"], answer: "saffron" },
-                // ... (98 more food questions omitted for brevity, e.g., "What is pizza topped with?" -> "cheese")
-                // Total: 100 questions
+                { question: "Which spice is made from saffron crocus?", options: ["cinnamon", "saffron", "turmeric", "paprika"], answer: "saffron" }
+                // ... (98 more placeholders)
             ].concat(Array(98).fill().map(() => ({ question: "Placeholder food question", options: ["a", "b", "c", "d"], answer: "a" }))),
             sports: [
                 { question: "How many players are there in a soccer team on the field?", options: ["9", "10", "11", "12"], answer: "11" },
-                { question: "Which sport uses a shuttlecock?", options: ["tennis", "badminton", "squash", "table tennis"], answer: "badminton" },
-                // ... (98 more sports questions omitted for brevity, e.g., "What is a goal called in hockey?" -> "goal")
-                // Total: 100 questions
-            ].concat(Array(98).fill().map().map(() => ({ question: "Placeholder sports question", options: ["a", "b", "c", "d"], answer: "a" }))),
+                { question: "Which sport uses a shuttlecock?", options: ["tennis", "badminton", "squash", "table tennis"], answer: "badminton" }
+                // ... (98 more placeholders)
+            ].concat(Array(98).fill().map(() => ({ question: "Placeholder sports question", options: ["a", "b", "c", "d"], answer: "a" }))),
             wanderlust: [
                 { question: "Which country is known for the Eiffel Tower?", options: ["Italy", "France", "Spain", "Germany"], answer: "france" },
-                { question: "What is the capital of Brazil?", options: ["Rio", "Sao Paulo", "Brasilia", "Salvador"], answer: "brasilia" },
-                // ... (98 more travel questions omitted, e.g., "Which desert is in Africa?" -> "Sahara")
-                // Total: 100 questions
+                { question: "What is the capital of Brazil?", options: ["Rio", "Sao Paulo", "Brasilia", "Salvador"], answer: "brasilia" }
+                // ... (98 more placeholders)
             ].concat(Array(98).fill().map(() => ({ question: "Placeholder wanderlust question", options: ["a", "b", "c", "d"], answer: "a" }))),
             movies: [
                 { question: "Who directed 'Inception'?", options: ["Spielberg", "Nolan", "Tarantino", "Cameron"], answer: "nolan" },
-                { question: "What year was 'Titanic' released?", options: ["1995", "1997", "1999", "2001"], answer: "1997" },
-                // ... (98 more movie questions omitted, e.g., "Who played Iron Man?" -> "Robert Downey Jr.")
-                // Total: 100 questions
+                { question: "What year was 'Titanic' released?", options: ["1995", "1997", "1999", "2001"], answer: "1997" }
+                // ... (98 more placeholders)
             ].concat(Array(98).fill().map(() => ({ question: "Placeholder movie question", options: ["a", "b", "c", "d"], answer: "a" }))),
             science: [
                 { question: "What is the chemical symbol for water?", options: ["O2", "H2O", "CO2", "N2"], answer: "h2o" },
-                { question: "Which planet is known as the Red Planet?", options: ["Venus", "Mars", "Jupiter", "Saturn"], answer: "mars" },
-                // ... (98 more science questions omitted, e.g., "What gas do plants absorb?" -> "Carbon Dioxide")
-                // Total: 100 questions
+                { question: "Which planet is known as the Red Planet?", options: ["Venus", "Mars", "Jupiter", "Saturn"], answer: "mars" }
+                // ... (98 more placeholders)
             ].concat(Array(98).fill().map(() => ({ question: "Placeholder science question", options: ["a", "b", "c", "d"], answer: "a" }))),
             indianHistory: [
                 { question: "Which empire built the Taj Mahal?", options: ["Maurya", "Mughal", "Gupta", "Chola"], answer: "mughal" },
-                { question: "Where is the Red Fort located?", options: ["Delhi", "Agra", "Jaipur", "Mumbai"], answer: "delhi" },
-                // ... (98 more Indian history questions omitted, e.g., "Who was the first Mughal Emperor?" -> "Babur")
-                // Total: 100 questions
+                { question: "Where is the Red Fort located?", options: ["Delhi", "Agra", "Jaipur", "Mumbai"], answer: "delhi" }
+                // ... (98 more placeholders)
             ].concat(Array(98).fill().map(() => ({ question: "Placeholder Indian history question", options: ["a", "b", "c", "d"], answer: "a" }))),
             animals: [
                 { question: "What is the largest land animal?", options: ["Elephant", "Giraffe", "Hippopotamus", "Rhinoceros"], answer: "elephant" },
-                { question: "Which bird is known for its black and white stripes?", options: ["Penguin", "Zebra Finch", "Ostrich", "Eagle"], answer: "penguin" },
-                // ... (98 more animal questions omitted, e.g., "What is a baby kangaroo called?" -> "Joey")
-                // Total: 100 questions
+                { question: "Which bird is known for its black and white stripes?", options: ["Penguin", "Zebra Finch", "Ostrich", "Eagle"], answer: "penguin" }
+                // ... (98 more placeholders)
             ].concat(Array(98).fill().map(() => ({ question: "Placeholder animal question", options: ["a", "b", "c", "d"], answer: "a" }))),
             indianCompanies: [
                 { question: "Which company is known for the brand 'Amul'?", options: ["HUL", "Amul", "Nestle", "Dabur"], answer: "amul" },
-                { question: "What is the parent company of Flipkart?", options: ["Amazon", "Walmart", "Reliance", "Tata"], answer: "walmart" },
-                // ... (98 more Indian company questions omitted, e.g., "Which company makes Tata Motors?" -> "Tata")
-                // Total: 100 questions
+                { question: "What is the parent company of Flipkart?", options: ["Amazon", "Walmart", "Reliance", "Tata"], answer: "walmart" }
+                // ... (98 more placeholders)
             ].concat(Array(98).fill().map(() => ({ question: "Placeholder Indian company question", options: ["a", "b", "c", "d"], answer: "a" }))),
             stockMarket: [
                 { question: "Which index tracks the Indian stock market?", options: ["S&P 500", "NIFTY 50", "Dow Jones", "FTSE"], answer: "nifty 50" },
-                { question: "What is the main stock exchange in India?", options: ["NYSE", "BSE", "NASDAQ", "LSE"], answer: "bse" },
-                // ... (98 more stock market questions omitted, e.g., "Which company is in NIFTY?" -> "Reliance")
-                // Total: 100 questions
+                { question: "What is the main stock exchange in India?", options: ["NYSE", "BSE", "NASDAQ", "LSE"], answer: "bse" }
+                // ... (98 more placeholders)
             ].concat(Array(98).fill().map(() => ({ question: "Placeholder stock market question", options: ["a", "b", "c", "d"], answer: "a" }))),
             cricket: [
                 { question: "Who holds the record for most runs in Test cricket?", options: ["Sachin Tendulkar", "Ricky Ponting", "Brian Lara", "Jacques Kallis"], answer: "sachin tendulkar" },
-                { question: "Which country won the 2011 Cricket World Cup?", options: ["Australia", "India", "Sri Lanka", "England"], answer: "india" },
-                // ... (98 more cricket questions omitted, e.g., "Who is the captain of India in 2023?" -> "Rohit Sharma")
-                // Total: 100 questions
+                { question: "Which country won the 2011 Cricket World Cup?", options: ["Australia", "India", "Sri Lanka", "England"], answer: "india" }
+                // ... (98 more placeholders)
             ].concat(Array(98).fill().map(() => ({ question: "Placeholder cricket question", options: ["a", "b", "c", "d"], answer: "a" }))),
             football: [
                 { question: "Which country won the FIFA World Cup in 2018?", options: ["Brazil", "Germany", "France", "Argentina"], answer: "france" },
-                { question: "Who is known as the 'King of Football'?", options: ["Messi", "Pele", "Maradona", "Ronaldo"], answer: "pele" },
-                // ... (98 more football questions omitted, e.g., "Which club is Messi with in 2023?" -> "PSG")
-                // Total: 100 questions
+                { question: "Who is known as the 'King of Football'?", options: ["Messi", "Pele", "Maradona", "Ronaldo"], answer: "pele" }
+                // ... (98 more placeholders)
             ].concat(Array(98).fill().map(() => ({ question: "Placeholder football question", options: ["a", "b", "c", "d"], answer: "a" }))),
             cbse: [
                 { question: "What is the chemical formula for carbon dioxide?", options: ["CO", "CO2", "CH4", "O2"], answer: "co2" },
-                { question: "Who wrote the Indian National Anthem?", options: ["Tagore", "Nehru", "Gandhi", "Ambedkar"], answer: "tagore" },
-                // ... (98 more CBSE questions omitted, e.g., "What is the capital of India?" -> "New Delhi")
-                // Total: 100 questions
+                { question: "Who wrote the Indian National Anthem?", options: ["Tagore", "Nehru", "Gandhi", "Ambedkar"], answer: "tagore" }
+                // ... (98 more placeholders)
             ].concat(Array(98).fill().map(() => ({ question: "Placeholder CBSE question", options: ["a", "b", "c", "d"], answer: "a" })))
         };
 
         function startQuiz(category) {
-            currentUser = prompt("Please enter your name:");
-            if (!currentUser) {
-                alert("Please enter a name to start the quiz!");
-                return;
+            let name = prompt("Please enter your name:");
+            while (!name || name.trim() === "") {
+                name = prompt("Please enter a valid name to start the quiz!");
             }
+            currentUser = name.trim();
             score = 0;
             let shuffledQuestions = [...quizzes[category]];
             shuffle(shuffledQuestions);
