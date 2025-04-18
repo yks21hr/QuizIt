@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<Hosted by>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,6 @@
 </head>
 <body>
     <h1>Welcome to My Website</h1>
-    <p>This is a simple web page.</p>
+    <p>You're about to get rich by the end of this year.</p>
 </body>
 </html>
