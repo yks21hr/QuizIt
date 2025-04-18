@@ -11,6 +11,9 @@
             padding: 0;
             background-color: #f4f4f4;
             color: #333;
+            min-height: 100vh; /* Ensure body takes full viewport height */
+            display: flex;
+            flex-direction: column;
         }
         header {
             background-color: #007BFF;
@@ -34,6 +37,7 @@
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            flex: 1; /* Allow container to grow and push footer down */
         }
         h1 {
             color: #007BFF;
@@ -71,6 +75,7 @@
             border-radius: 4px;
             cursor: pointer;
             margin-top: 20px;
+            margin-bottom: 40px; /* Add space below button to prevent footer overlap */
         }
         .motivate-btn:hover {
             background-color: #218838;
@@ -80,9 +85,8 @@
             padding: 20px;
             background-color: #007BFF;
             color: white;
-            position: fixed;
-            bottom: 0;
             width: 100%;
+            /* Removed position: fixed to prevent overlap */
         }
         footer a {
             color: white;
@@ -124,7 +128,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 All Your Wishes Will Come True</p>
+        <p>© 2025 All Your Wishes Will Come True</p>
         <a href="https://twitter.com">Twitter</a>
         <a href="https://facebook.com">Facebook</a>
     </footer>
@@ -147,7 +151,6 @@
             const message = document.getElementById('message').value;
             if (name && email && message) {
                 alert(`Thank you, ${name}! Your message has been received.`);
-                // For now, we just show an alert. Later, you can add backend to handle form data.
                 document.getElementById('name').value = '';
                 document.getElementById('email').value = '';
                 document.getElementById('message').value = '';
