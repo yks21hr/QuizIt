@@ -85,6 +85,45 @@
         footer a:hover {
             text-decoration: underline;
         }
+        /* Quiz Modal Styles */
+        .quiz-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .quiz-content {
+            background-color: #1a2a44;
+            padding: 20px;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 500px;
+            text-align: left;
+        }
+        .quiz-content h3 {
+            margin-top: 0;
+        }
+        .quiz-content label {
+            display: block;
+            margin: 10px 0;
+        }
+        .quiz-content button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .quiz-content button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -127,6 +166,20 @@
         </div>
 
         <img src="https://via.placeholder.com/800x400?text=Cartoon+Quiz+Image" alt="Cartoon Quiz Image" class="cartoon-image">
+
+        <!-- Quiz Modal -->
+        <div id="quizModal" class="quiz-modal">
+            <div class="quiz-content">
+                <h3 id="quizQuestion"></h3>
+                <form id="quizForm">
+                    <label><input type="radio" name="option" value="0"> A) <span id="optionA"></span></label>
+                    <label><input type="radio" name="option" value="1"> B) <span id="optionB"></span></label>
+                    <label><input type="radio" name="option" value="2"> C) <span id="optionC"></span></label>
+                    <label><input type="radio" name="option" value="3"> D) <span id="optionD"></span></label>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
     </div>
 
     <footer>
@@ -137,6 +190,9 @@
 
     <script>
         let currentUser = '';
+        let currentQuestionIndex = 0;
+        let currentQuestions = [];
+        let score = 0;
         const scores = {
             common: {},
             food: {},
@@ -171,7 +227,7 @@
         // Update leaderboards display
         function updateLeaderboards() {
             Object.keys(scores).forEach(category => {
-                const leaderboard = document.getElementId(`${category}Leaderboard`);
+                const leaderboard = document.getElementById(`${category}Leaderboard`);
                 leaderboard.innerHTML = `<h3>${category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1').trim()} Quiz</h3><ul>`;
                 const categoryScores = Object.entries(scores[category]).sort((a, b) => b[1] - a[1]);
                 categoryScores.slice(0, 5).forEach(([name, score], index) => {
@@ -268,49 +324,58 @@
             score = 0;
             let shuffledQuestions = [...quizzes[category]];
             shuffle(shuffledQuestions);
-            const selectedQuestions = shuffledQuestions.slice(0, 10);
+            currentQuestions = shuffledQuestions.slice(0, 10);
             alert(`Instructions: Each correct answer gives you 10 points. Each wrong answer deducts 3 points. Let's begin the ${category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1').trim()} Quiz!`);
-            askQuestion(category, selectedQuestions, 0);
+            showQuestion();
         }
 
-        function askQuestion(category, questions, index) {
-            if (index >= questions.length) {
-                if (currentUser in scores[category]) {
-                    scores[category][currentUser] = Math.max(scores[category][currentUser] || 0, score);
+        function showQuestion() {
+            const modal = document.getElementById('quizModal');
+            const questionElement = document.getElementById('quizQuestion');
+            const optionA = document.getElementById('optionA');
+            const optionB = document.getElementById('optionB');
+            const optionC = document.getElementById('optionC');
+            const optionD = document.getElementById('optionD');
+            const form = document.getElementById('quizForm');
+
+            if (currentQuestionIndex >= currentQuestions.length) {
+                if (currentUser in scores[currentCategory]) {
+                    scores[currentCategory][currentUser] = Math.max(scores[currentCategory][currentUser] || 0, score);
                 } else {
-                    scores[category][currentUser] = score;
+                    scores[currentCategory][currentUser] = score;
                 }
                 saveScores();
                 alert(`Quiz over, ${currentUser}! Your final score is ${score} points.`);
-                displayLeaderboard(category);
+                displayLeaderboard(currentCategory);
+                modal.style.display = 'none';
                 return;
             }
 
-            const q = questions[index];
-            let optionsText = `A) ${q.options[0]}\nB) ${q.options[1]}\nC) ${q.options[2]}\nD) ${q.options[3]}`;
-            let userChoice = prompt(`Q: ${q.question}\n${optionsText}`).toLowerCase().trim();
-            let choiceIndex = -1;
-            switch (userChoice) {
-                case 'a': case 'a)': choiceIndex = 0; break;
-                case 'b': case 'b)': choiceIndex = 1; break;
-                case 'c': case 'c)': choiceIndex = 2; break;
-                case 'd': case 'd)': choiceIndex = 3; break;
-                default: choiceIndex = -1;
-            }
-            if (choiceIndex !== -1 && userChoice) {
-                if (q.options[choiceIndex].toLowerCase() === q.answer) {
-                    score += 10;
-                    alert(`Correct! +10 points. Your score is now ${score}.`);
+            const q = currentQuestions[currentQuestionIndex];
+            questionElement.textContent = `Q: ${q.question}`;
+            optionA.textContent = q.options[0];
+            optionB.textContent = q.options[1];
+            optionC.textContent = q.options[2];
+            optionD.textContent = q.options[3];
+            form.onsubmit = (e) => {
+                e.preventDefault();
+                const selectedOption = document.querySelector('input[name="option"]:checked');
+                if (selectedOption) {
+                    const choiceIndex = parseInt(selectedOption.value);
+                    if (q.options[choiceIndex].toLowerCase() === q.answer) {
+                        score += 10;
+                        alert(`Correct! +10 points. Your score is now ${score}.`);
+                    } else {
+                        score -= 3;
+                        alert(`Wrong! -3 points. The correct answer was ${q.answer}. Your score is now ${score}.`);
+                    }
+                    currentQuestionIndex++;
+                    showQuestion();
                 } else {
-                    score -= 3;
-                    alert(`Wrong! -3 points. The correct answer was ${q.answer}. Your score is now ${score}.`);
+                    alert("Please select an option!");
                 }
-            } else {
-                alert("Please select a valid option (A, B, C, or D)!");
-                askQuestion(category, questions, index);
-                return;
-            }
-            askQuestion(category, questions, index + 1);
+            };
+            modal.style.display = 'flex';
         }
 
         function displayLeaderboard(category) {
@@ -324,6 +389,7 @@
 
         // Initialize scores and leaderboards
         let score = 0;
+        let currentCategory = '';
         loadScores();
     </script>
 </body>
