@@ -277,7 +277,7 @@
                 { question: "How many players are on a basketball team on the court?", options: ["4", "5", "6", "7"], answer: "5" },
                 { question: "Which country hosted the 2016 Summer Olympics?", options: ["China", "Brazil", "USA", "UK"], answer: "brazil" },
                 { question: "What is the maximum score in a single frame of bowling?", options: ["100", "200", "250", "300"], answer: "300" },
-                { question: "Which sport is played at Wimbledon?”, options: ["cricket", "tennis", "rugby", "golf"], answer: "tennis" },
+                { question: "Which sport is played at Wimbledon?", options: ["cricket", "tennis", "rugby", "golf"], answer: "tennis" },
                 { question: "How long is an Olympic swimming pool (in meters)?", options: ["25", "50", "75", "100"], answer: "50" },
                 { question: "In which sport do you perform a 'slam dunk'?", options: ["volleyball", "basketball", "netball", "handball"], answer: "basketball" }
             ],
@@ -306,7 +306,7 @@
                 { question: "Who composed the music for 'Roja'?", options: ["A.R. Rahman", "Ilaiyaraaja", "Shankar-Ehsaan-Loy", "Vishal-Shekhar"], answer: "a.r. rahman" }
             ],
             foodTravel: [
-                { question: "Which country is famous for paella?", options: ["Italy  options: ["Italy", "Spain", "France", "Greece"], answer: "spain" },
+                { question: "Which country is famous for paella?", options: ["Italy", "Spain", "France", "Greece"], answer: "spain" },
                 { question: "What is the capital city of Thailand?", options: ["Bangkok", "Phuket", "Chiang Mai", "Pattaya"], answer: "bangkok" },
                 { question: "Which spice is a key ingredient in curry?", options: ["saffron", "turmeric", "oregano", "basil"], answer: "turmeric" },
                 { question: "What is the famous landmark in Paris?", options: ["Eiffel Tower", "Big Ben", "Colosseum", "Statue of Liberty"], answer: "eiffel tower" },
@@ -356,7 +356,7 @@
             genZ: [
                 { question: "What does 'slay' mean in GenZ slang?", options: ["to fail", "to succeed impressively", "to sleep", "to argue"], answer: "to succeed impressively" },
                 { question: "What is 'yeet' used to express?", options: ["excitement or throwing something", "sadness", "confusion", "agreement"], answer: "excitement or throwing something" },
-                { question: "What does 'sus' mean?", options: ["suspicious", "superb", "sunny", "surprise"], answer: "suspicious" },
+                { question: "What does 'sus' mean?", options: ["suspicious", "superb", "sunny", "surprised"], answer: "suspicious" },
                 { question: "What is a 'stan'?", options: ["a casual fan", "an obsessive fan", "a critic", "a friend"], answer: "an obsessive fan" },
                 { question: "What does 'bet' mean in GenZ slang?", options: ["to bet money", "okay or sure", "to disagree", "to leave"], answer: "okay or sure" },
                 { question: "What does 'no cap' mean?", options: ["no limit", "honestly", "no problem", "no chance"], answer: "honestly" },
@@ -369,7 +369,7 @@
                 { question: "What is the main benefit of hyaluronic acid in skincare?", options: ["exfoliation", "hydration", "oil control", "brightening"], answer: "hydration" },
                 { question: "How many minutes should you wait after applying sunscreen before going outside?", options: ["5", "15", "30", "60"], answer: "15" },
                 { question: "What type of exercise is best for building muscle?", options: ["cardio", "yoga", "strength training", "pilates"], answer: "strength training" },
-                { question: "Which vitamin is known for promoting hair growth?", options: ["Vitamin A", "Vitamin B7 Биотин)", "Vitamin C", "Vitamin D"], answer: "vitamin b7 (biotin)" },
+                { question: "Which vitamin is known for promoting hair growth?", options: ["Vitamin A", "Vitamin B7 (Biotin)", "Vitamin C", "Vitamin D"], answer: "vitamin b7 (biotin)" },
                 { question: "What is a common ingredient in acne treatments?", options: ["coconut oil", "salicylic acid", "sugar syrup", "lemon extract"], answer: "salicylic acid" },
                 { question: "How often should you typically exfoliate your skin?", options: ["daily", "2-3 times a week", "once a month", "never"], answer: "2-3 times a week" },
                 { question: "What is the recommended daily water intake for adults (in liters)?", options: ["1", "2", "3", "4"], answer: "2" },
