@@ -197,6 +197,8 @@
         let currentQuestionIndex = 0;
         let currentCategory = '';
         let score = 0;
+        let shuffledQuestions = []; // Array to store shuffled questions for the current quiz
+
         const scores = {
             common: {},
             food: {},
@@ -214,6 +216,16 @@
             solveRiddle: {},
             birdLocations: {}
         };
+
+        // Function to shuffle an array (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            const shuffled = [...array]; // Create a copy to avoid modifying the original
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
 
         // Load scores from localStorage
         function loadScores() {
@@ -436,7 +448,9 @@
             currentCategory = category;
             score = 0;
             currentQuestionIndex = 0;
-            console.log('Starting quiz for category:', category); // Debug log
+            // Shuffle questions for this quiz session
+            shuffledQuestions = shuffleArray(quizzes[currentCategory]);
+            console.log('Starting quiz for category:', category, 'with shuffled questions:', shuffledQuestions); // Debug log
             alert(`Instructions: Each correct answer gives you 10 points. Each wrong answer deducts 3 points. Let's begin the ${category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1').trim()} Quiz! Click Cancel to stop the quiz.`);
             showQuestion();
         }
@@ -450,7 +464,7 @@
             const optionD = document.getElementById('optionD');
             const form = document.getElementById('quizForm');
 
-            if (currentQuestionIndex >= quizzes[currentCategory].length) {
+            if (currentQuestionIndex >= shuffledQuestions.length) {
                 if (currentUser in scores[currentCategory]) {
                     scores[currentCategory][currentUser] = Math.max(scores[currentCategory][currentUser] || 0, score);
                 } else {
@@ -463,7 +477,7 @@
                 return;
             }
 
-            const q = quizzes[currentCategory][currentQuestionIndex];
+            const q = shuffledQuestions[currentQuestionIndex];
             if (!q) {
                 console.error('No question available at index:', currentQuestionIndex);
                 modal.style.display = 'none';
