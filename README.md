@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.firebaseio.com https://*.gstatic.com; script-src 'self' https://www.gstatic.com https://cdn.firebase.com; style-src 'self' 'unsafe-inline';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';">
     <title>QuizIt!</title>
     <style>
         body {
@@ -85,6 +85,7 @@
         footer a:hover {
             text-decoration: underline;
         }
+        /* Quiz Modal Styles */
         .quiz-modal {
             display: none;
             position: fixed;
@@ -158,6 +159,7 @@
 
         <img src="https://via.placeholder.com/800x400?text=Cartoon+Quiz+Image" alt="Cartoon Quiz Image" class="cartoon-image">
 
+        <!-- Quiz Modal -->
         <div id="quizModal" class="quiz-modal">
             <div class="quiz-content">
                 <h3 id="quizQuestion"></h3>
@@ -178,26 +180,8 @@
         <a href="https://facebook.com">Facebook</a>
     </footer>
 
-    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js"></script>
     <script>
-        // Firebase configuration (replace with your Firebase project config)
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        const auth = firebase.auth();
-
-        let currentUser = null;
+        let currentUser = '';
         let currentQuestionIndex = 0;
         let currentCategory = '';
         let score = 0;
@@ -213,49 +197,19 @@
             scienceTech: {}
         };
 
-        // Anonymous login
-        async function initializeUser() {
-            try {
-                const userCredential = await auth.signInAnonymously();
-                currentUser = userCredential.user;
-                console.log('Anonymous user logged in:', currentUser.uid);
-                loadScores();
-            } catch (error) {
-                console.error('Error signing in anonymously:', error);
-                alert('Failed to initialize user. Please try again.');
+        // Load scores from localStorage
+        function loadScores() {
+            const savedScores = localStorage.getItem('quizScores');
+            if (savedScores) {
+                Object.assign(scores, JSON.parse(savedScores));
             }
+            updateLeaderboards();
         }
 
-        // Load scores from Firestore
-        async function loadScores() {
-            try {
-                const categories = ['common', 'food', 'sports', 'animalKingdom', 'indianCinema', 'foodTravel', 'indianCompanies', 'stockMarket', 'scienceTech'];
-                for (const category of categories) {
-                    const docRef = db.collection('scores').doc(category);
-                    const doc = await docRef.get();
-                    if (doc.exists) {
-                        scores[category] = doc.data().users || {};
-                    }
-                }
-                updateLeaderboards();
-            } catch (error) {
-                console.error('Error loading scores:', error);
-            }
-        }
-
-        // Save scores to Firestore
-        async function saveScores(category, userId, userName, score) {
-            try {
-                const docRef = db.collection('scores').doc(category);
-                const doc = await docRef.get();
-                let users = doc.exists ? doc.data().users || {} : {};
-                users[userId] = { name: userName, score: Math.max(users[userId]?.score || 0, score) };
-                await docRef.set({ users }, { merge: true });
-                scores[category] = users;
-                updateLeaderboards();
-            } catch (error) {
-                console.error('Error saving scores:', error);
-            }
+        // Save scores to localStorage
+        function saveScores() {
+            localStorage.setItem('quizScores', JSON.stringify(scores));
+            updateLeaderboards();
         }
 
         // Update leaderboards display
@@ -263,17 +217,15 @@
             ['common', 'food', 'sports', 'animalKingdom', 'indianCinema', 'foodTravel', 'indianCompanies', 'stockMarket', 'scienceTech'].forEach(category => {
                 const leaderboard = document.getElementById(`${category}Leaderboard`);
                 leaderboard.innerHTML = `<h3>${category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1').trim()} Quiz</h3><ul>`;
-                const categoryScores = Object.entries(scores[category] || {})
-                    .map(([id, data]) => ({ name: data.name, score: data.score }))
-                    .sort((a, b) => b.score - a.score);
-                categoryScores.slice(0, 5).forEach((entry, index) => {
-                    leaderboard.innerHTML += `<li>${index + 1}. ${entry.name}: ${entry.score} points</li>`;
+                const categoryScores = Object.entries(scores[category]).sort((a, b) => b[1] - a[1]);
+                categoryScores.slice(0, 5).forEach(([name, score], index) => {
+                    leaderboard.innerHTML += `<li>${index + 1}. ${name}: ${score} points</li>`;
                 });
                 leaderboard.innerHTML += `</ul>`;
             });
         }
 
-        // Quiz questions (unchanged)
+        // Quiz questions
         const quizzes = {
             common: [
                 { question: "What color is the sky on a clear day?", options: ["red", "blue", "green", "yellow"], answer: "blue" },
@@ -386,25 +338,20 @@
         };
 
         function startQuiz(category) {
-            if (!currentUser) {
-                alert('User not initialized. Please try again.');
-                initializeUser();
-                return;
-            }
-            const userName = prompt("Please enter your name:");
-            if (!userName || userName.trim() === "") {
+            currentUser = prompt("Please enter your name:");
+            if (!currentUser || currentUser.trim() === "") {
                 alert("Quiz cancelled. Please enter a valid name to start.");
                 return;
             }
             currentCategory = category;
             score = 0;
             currentQuestionIndex = 0;
-            console.log('Starting quiz for category:', category);
+            console.log('Starting quiz for category:', category); // Debug log
             alert(`Instructions: Each correct answer gives you 10 points. Each wrong answer deducts 3 points. Let's begin the ${category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1').trim()} Quiz! Click Cancel to stop the quiz.`);
-            showQuestion(userName);
+            showQuestion();
         }
 
-        function showQuestion(userName) {
+        function showQuestion() {
             const modal = document.getElementById('quizModal');
             const questionElement = document.getElementById('quizQuestion');
             const optionA = document.getElementById('optionA');
@@ -414,8 +361,13 @@
             const form = document.getElementById('quizForm');
 
             if (currentQuestionIndex >= quizzes[currentCategory].length) {
-                saveScores(currentCategory, currentUser.uid, userName, score);
-                alert(`Quiz over, ${userName}! Your final score is ${score} points.`);
+                if (currentUser in scores[currentCategory]) {
+                    scores[currentCategory][currentUser] = Math.max(scores[currentCategory][currentUser] || 0, score);
+                } else {
+                    scores[currentCategory][currentUser] = score;
+                }
+                saveScores();
+                alert(`Quiz over, ${currentUser}! Your final score is ${score} points.`);
                 displayLeaderboard(currentCategory);
                 modal.style.display = 'none';
                 return;
@@ -427,7 +379,7 @@
                 modal.style.display = 'none';
                 return;
             }
-            console.log('Current Question:', q);
+            console.log('Current Question:', q); // Debug log
             questionElement.textContent = `Q: ${q.question}`;
             optionA.textContent = q.options[0];
             optionB.textContent = q.options[1];
@@ -447,28 +399,26 @@
                         alert(`Wrong! -3 points. The correct answer was ${q.answer}. Your score is now ${score}.`);
                     }
                     currentQuestionIndex++;
-                    showQuestion(userName);
+                    showQuestion();
                 } else {
                     alert("Please select an option!");
                 }
             };
             modal.style.display = 'flex';
-            form.reset();
+            form.reset(); // Reset radio buttons
         }
 
         function displayLeaderboard(category) {
             let message = `Leaderboard for ${category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1').trim()} Quiz:\n`;
-            const categoryScores = Object.entries(scores[category] || {})
-                .map(([id, data]) => ({ name: data.name, score: data.score }))
-                .sort((a, b) => b.score - a.score);
-            categoryScores.slice(0, 5).forEach((entry, index) => {
-                message += `${index + 1}. ${entry.name}: ${entry.score} points\n`;
+            const categoryScores = Object.entries(scores[category]).sort((a, b) => b[1] - a[1]);
+            categoryScores.slice(0, 5).forEach(([name, score], index) => {
+                message += `${index + 1}. ${name}: ${score} points\n`;
             });
             alert(message);
         }
 
-        // Initialize user and scores
-        initializeUser();
+        // Initialize scores and leaderboards
+        loadScores();
     </script>
 </body>
 </html>
