@@ -142,6 +142,8 @@
             <button onclick="startQuiz('indianCompanies')">Indian Companies Quiz</button>
             <button onclick="startQuiz('stockMarket')">Stock Market Quiz</button>
             <button onclick="startQuiz('scienceTech')">Science and Technology Quiz</button>
+            <button onclick="startQuiz('genZ')">The GenZ Quiz</button>
+            <button onclick="startQuiz('beautyBeast')">Beauty and the Beast Quiz</button>
         </div>
 
         <div class="leaderboard">
@@ -155,6 +157,8 @@
             <div id="indianCompaniesLeaderboard"></div>
             <div id="stockMarketLeaderboard"></div>
             <div id="scienceTechLeaderboard"></div>
+            <div id="genZLeaderboard"></div>
+            <div id="beautyBeastLeaderboard"></div>
         </div>
 
         <img src="https://via.placeholder.com/800x400?text=Cartoon+Quiz+Image" alt="Cartoon Quiz Image" class="cartoon-image">
@@ -194,7 +198,9 @@
             foodTravel: {},
             indianCompanies: {},
             stockMarket: {},
-            scienceTech: {}
+            scienceTech: {},
+            genZ: {},
+            beautyBeast: {}
         };
 
         // Load scores from localStorage
@@ -214,7 +220,7 @@
 
         // Update leaderboards display
         function updateLeaderboards() {
-            ['common', 'food', 'sports', 'animalKingdom', 'indianCinema', 'foodTravel', 'indianCompanies', 'stockMarket', 'scienceTech'].forEach(category => {
+            ['common', 'food', 'sports', 'animalKingdom', 'indianCinema', 'foodTravel', 'indianCompanies', 'stockMarket', 'scienceTech', 'genZ', 'beautyBeast'].forEach(category => {
                 const leaderboard = document.getElementById(`${category}Leaderboard`);
                 leaderboard.innerHTML = `<h3>${category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1').trim()} Quiz</h3><ul>`;
                 const categoryScores = Object.entries(scores[category]).sort((a, b) => b[1] - a[1]);
@@ -334,6 +340,30 @@
                 { question: "What is the unit of electrical resistance?", options: ["volt", "ohm", "ampere", "watt"], answer: "ohm" },
                 { question: "Which invention is credited to Alexander Graham Bell?", options: ["telephone", "light bulb", "radio", "television"], answer: "telephone" },
                 { question: "What is the most abundant element in the universe?", options: ["oxygen", "hydrogen", "helium", "carbon"], answer: "hydrogen" }
+            ],
+            genZ: [
+                { question: "What does 'slay' mean in GenZ slang?", options: ["to fail", "to succeed impressively", "to sleep", "to argue"], answer: "to succeed impressively" },
+                { question: "What is 'yeet' used to express?", options: ["excitement or throwing something", "sadness", "confusion", "agreement"], answer: "excitement or throwing something" },
+                { question: "What does 'sus' mean?", options: ["suspicious", "superb", "sunny", "surprised"], answer: "suspicious" },
+                { question: "What is a 'stan'?", options: ["a casual fan", "an obsessive fan", "a critic", "a friend"], answer: "an obsessive fan" },
+                { question: "What does 'bet' mean in GenZ slang?", options: ["to bet money", "okay or sure", "to disagree", "to leave"], answer: "okay or sure" },
+                { question: "What does 'no cap' mean?", options: ["no limit", "honestly", "no problem", "no chance"], answer: "honestly" },
+                { question: "What is 'vibing'?", options: ["arguing", "relaxing and enjoying", "working hard", "traveling"], answer: "relaxing and enjoying" },
+                { question: "What does 'lit' describe?", options: ["something boring", "something exciting", "something old", "something quiet"], answer: "something exciting" },
+                { question: "What does 'salty' mean in GenZ slang?", options: ["happy", "upset or bitter", "hungry", "tired"], answer: "upset or bitter" },
+                { question: "What does 'GOAT' stand for?", options: ["Greatest Of All Time", "Good At Talking", "Gathering Of Teens", "Goal Of Action"], answer: "greatest of all time" }
+            ],
+            beautyBeast: [
+                { question: "What is the main benefit of hyaluronic acid in skincare?", options: ["exfoliation", "hydration", "oil control", "brightening"], answer: "hydration" },
+                { question: "How many minutes should you wait after applying sunscreen before going outside?", options: ["5", "15", "30", "60"], answer: "15" },
+                { question: "What type of exercise is best for building muscle?", options: ["cardio", "yoga", "strength training", "pilates"], answer: "strength training" },
+                { question: "Which vitamin is known for promoting hair growth?", options: ["Vitamin A", "Vitamin B7 (Biotin)", "Vitamin C", "Vitamin D"], answer: "vitamin b7 (biotin)" },
+                { question: "What is a common ingredient in acne treatments?", options: ["coconut oil", "salicylic acid", "sugar syrup", "lemon extract"], answer: "salicylic acid" },
+                { question: "How often should you typically exfoliate your skin?", options: ["daily", "2-3 times a week", "once a month", "never"], answer: "2-3 times a week" },
+                { question: "What is the recommended daily water intake for adults (in liters)?", options: ["1", "2", "3", "4"], answer: "2" },
+                { question: "Which muscle group is targeted by a plank exercise?", options: ["biceps", "core", "quadriceps", "calves"], answer: "core" },
+                { question: "What does SPF stand for in sunscreen?", options: ["Skin Protection Factor", "Sun Protection Factor", "Solar Power Factor", "Skin Pigment Factor"], answer: "sun protection factor" },
+                { question: "What is a key benefit of retinol in skincare?", options: ["moisturizing", "anti-aging", "soothing", "tanning"], answer: "anti-aging" }
             ]
         };
 
