@@ -144,6 +144,10 @@
             <button onclick="startQuiz('scienceTech')">Science and Technology Quiz</button>
             <button onclick="startQuiz('genZ')">The GenZ Quiz</button>
             <button onclick="startQuiz('beautyBeast')">Beauty and the Beast Quiz</button>
+            <button onclick="startQuiz('historicalMonuments')">Historical Monuments in India</button>
+            <button onclick="startQuiz('indianCities')">Indian Cities Quiz</button>
+            <button onclick="startQuiz('solveRiddle')">Solve The Riddle</button>
+            <button onclick="startQuiz('birdLocations')">Where Do You Find These Birds</button>
         </div>
 
         <div class="leaderboard">
@@ -159,6 +163,10 @@
             <div id="scienceTechLeaderboard"></div>
             <div id="genZLeaderboard"></div>
             <div id="beautyBeastLeaderboard"></div>
+            <div id="historicalMonumentsLeaderboard"></div>
+            <div id="indianCitiesLeaderboard"></div>
+            <div id="solveRiddleLeaderboard"></div>
+            <div id="birdLocationsLeaderboard"></div>
         </div>
 
         <img src="https://via.placeholder.com/800x400?text=Cartoon+Quiz+Image" alt="Cartoon Quiz Image" class="cartoon-image">
@@ -200,7 +208,11 @@
             stockMarket: {},
             scienceTech: {},
             genZ: {},
-            beautyBeast: {}
+            beautyBeast: {},
+            historicalMonuments: {},
+            indianCities: {},
+            solveRiddle: {},
+            birdLocations: {}
         };
 
         // Load scores from localStorage
@@ -220,7 +232,7 @@
 
         // Update leaderboards display
         function updateLeaderboards() {
-            ['common', 'food', 'sports', 'animalKingdom', 'indianCinema', 'foodTravel', 'indianCompanies', 'stockMarket', 'scienceTech', 'genZ', 'beautyBeast'].forEach(category => {
+            ['common', 'food', 'sports', 'animalKingdom', 'indianCinema', 'foodTravel', 'indianCompanies', 'stockMarket', 'scienceTech', 'genZ', 'beautyBeast', 'historicalMonuments', 'indianCities', 'solveRiddle', 'birdLocations'].forEach(category => {
                 const leaderboard = document.getElementById(`${category}Leaderboard`);
                 leaderboard.innerHTML = `<h3>${category.charAt(0).toUpperCase() + category.slice(1).replace(/([A-Z])/g, ' $1').trim()} Quiz</h3><ul>`;
                 const categoryScores = Object.entries(scores[category]).sort((a, b) => b[1] - a[1]);
@@ -265,7 +277,7 @@
                 { question: "How many players are on a basketball team on the court?", options: ["4", "5", "6", "7"], answer: "5" },
                 { question: "Which country hosted the 2016 Summer Olympics?", options: ["China", "Brazil", "USA", "UK"], answer: "brazil" },
                 { question: "What is the maximum score in a single frame of bowling?", options: ["100", "200", "250", "300"], answer: "300" },
-                { question: "Which sport is played at Wimbledon?", options: ["cricket", "tennis", "rugby", "golf"], answer: "tennis" },
+                { question: "Which sport is played at Wimbledon?”, options: ["cricket", "tennis", "rugby", "golf"], answer: "tennis" },
                 { question: "How long is an Olympic swimming pool (in meters)?", options: ["25", "50", "75", "100"], answer: "50" },
                 { question: "In which sport do you perform a 'slam dunk'?", options: ["volleyball", "basketball", "netball", "handball"], answer: "basketball" }
             ],
@@ -294,7 +306,7 @@
                 { question: "Who composed the music for 'Roja'?", options: ["A.R. Rahman", "Ilaiyaraaja", "Shankar-Ehsaan-Loy", "Vishal-Shekhar"], answer: "a.r. rahman" }
             ],
             foodTravel: [
-                { question: "Which country is famous for paella?", options: ["Italy", "Spain", "France", "Greece"], answer: "spain" },
+                { question: "Which country is famous for paella?", options: ["Italy  options: ["Italy", "Spain", "France", "Greece"], answer: "spain" },
                 { question: "What is the capital city of Thailand?", options: ["Bangkok", "Phuket", "Chiang Mai", "Pattaya"], answer: "bangkok" },
                 { question: "Which spice is a key ingredient in curry?", options: ["saffron", "turmeric", "oregano", "basil"], answer: "turmeric" },
                 { question: "What is the famous landmark in Paris?", options: ["Eiffel Tower", "Big Ben", "Colosseum", "Statue of Liberty"], answer: "eiffel tower" },
@@ -344,7 +356,7 @@
             genZ: [
                 { question: "What does 'slay' mean in GenZ slang?", options: ["to fail", "to succeed impressively", "to sleep", "to argue"], answer: "to succeed impressively" },
                 { question: "What is 'yeet' used to express?", options: ["excitement or throwing something", "sadness", "confusion", "agreement"], answer: "excitement or throwing something" },
-                { question: "What does 'sus' mean?", options: ["suspicious", "superb", "sunny", "surprised"], answer: "suspicious" },
+                { question: "What does 'sus' mean?", options: ["suspicious", "superb", "sunny", "surprise"], answer: "suspicious" },
                 { question: "What is a 'stan'?", options: ["a casual fan", "an obsessive fan", "a critic", "a friend"], answer: "an obsessive fan" },
                 { question: "What does 'bet' mean in GenZ slang?", options: ["to bet money", "okay or sure", "to disagree", "to leave"], answer: "okay or sure" },
                 { question: "What does 'no cap' mean?", options: ["no limit", "honestly", "no problem", "no chance"], answer: "honestly" },
@@ -357,13 +369,61 @@
                 { question: "What is the main benefit of hyaluronic acid in skincare?", options: ["exfoliation", "hydration", "oil control", "brightening"], answer: "hydration" },
                 { question: "How many minutes should you wait after applying sunscreen before going outside?", options: ["5", "15", "30", "60"], answer: "15" },
                 { question: "What type of exercise is best for building muscle?", options: ["cardio", "yoga", "strength training", "pilates"], answer: "strength training" },
-                { question: "Which vitamin is known for promoting hair growth?", options: ["Vitamin A", "Vitamin B7 (Biotin)", "Vitamin C", "Vitamin D"], answer: "vitamin b7 (biotin)" },
+                { question: "Which vitamin is known for promoting hair growth?", options: ["Vitamin A", "Vitamin B7 Биотин)", "Vitamin C", "Vitamin D"], answer: "vitamin b7 (biotin)" },
                 { question: "What is a common ingredient in acne treatments?", options: ["coconut oil", "salicylic acid", "sugar syrup", "lemon extract"], answer: "salicylic acid" },
                 { question: "How often should you typically exfoliate your skin?", options: ["daily", "2-3 times a week", "once a month", "never"], answer: "2-3 times a week" },
                 { question: "What is the recommended daily water intake for adults (in liters)?", options: ["1", "2", "3", "4"], answer: "2" },
                 { question: "Which muscle group is targeted by a plank exercise?", options: ["biceps", "core", "quadriceps", "calves"], answer: "core" },
                 { question: "What does SPF stand for in sunscreen?", options: ["Skin Protection Factor", "Sun Protection Factor", "Solar Power Factor", "Skin Pigment Factor"], answer: "sun protection factor" },
                 { question: "What is a key benefit of retinol in skincare?", options: ["moisturizing", "anti-aging", "soothing", "tanning"], answer: "anti-aging" }
+            ],
+            historicalMonuments: [
+                { question: "In which city is the Taj Mahal located?", options: ["Delhi", "Agra", "Jaipur", "Mumbai"], answer: "agra" },
+                { question: "Which monument is known as the 'Iron Pillar' and located in Delhi?", options: ["Qutub Minar", "Iron Pillar of Delhi", "Red Fort", "India Gate"], answer: "iron pillar of delhi" },
+                { question: "Which South Indian temple is famous for its Dravidian architecture?", options: ["Meenakshi Temple", "Konark Sun Temple", "Ajanta Caves", "Hampi"], answer: "meenakshi temple" },
+                { question: "Which monument was built by Emperor Ashoka in Sarnath?", options: ["Sanchi Stupa", "Dhamek Stupa", "Amaravati Stupa", "Nalanda"], answer: "dhamek stupa" },
+                { question: "What is the primary material used in the construction of the Red Fort?", options: ["White Marble", "Red Sandstone", "Granite", "Limestone"], answer: "red sandstone" },
+                { question: "Which monument in Hampi is known for its musical pillars?", options: ["Vittala Temple", "Virupaksha Temple", "Lotus Mahal", "Hazara Rama Temple"], answer: "vittala temple" },
+                { question: "Which Mughal emperor commissioned the Humayun's Tomb?", options: ["Akbar", "Babur", "Humayun", "Jahangir"], answer: "humayun" },
+                { question: "Which monument is a rock-cut cave complex in Maharashtra?", options: ["Ellora Caves", "Elephanta Caves", "Ajanta Caves", "Badami Caves"], answer: "ajanta caves" },
+                { question: "Which monument in Jaipur is known as the 'Palace of Winds'?", options: ["Jal Mahal", "Hawa Mahal", "City Palace", "Amber Fort"], answer: "hawa mahal" },
+                { question: "Which ancient university in Bihar is a UNESCO World Heritage Site?", options: ["Taxila", "Nalanda", "Vikramashila", "Odantapuri"], answer: "nalanda" }
+            ],
+            indianCities: [
+                { question: "Which city is known as the 'Silicon Valley of India'?", options: ["Mumbai", "Bengaluru", "Hyderabad", "Pune"], answer: "bengaluru" },
+                { question: "Which city is the capital of West Bengal?", options: ["Kolkata", "Siliguri", "Durgapur", "Asansol"], answer: "kolkata" },
+                { question: "Which city is famous for its Pink City nickname?", options: ["Jaipur", "Jodhpur", "Udaipur", "Bikaner"], answer: "jaipur" },
+                { question: "Which city is known as the 'City of Joy'?", options: ["Mumbai", "Kolkata", "Chennai", "Delhi"], answer: "kolkata" },
+                { question: "Which city is the financial capital of India?", options: ["Delhi", "Mumbai", "Bengaluru", "Hyderabad"], answer: "mumbai" },
+                { question: "Which city is known for its IT industry and called 'Cyberabad'?", options: ["Chennai", "Hyderabad", "Pune", "Ahmedabad"], answer: "hyderabad" },
+                { question: "Which city is famous for its Marina Beach?", options: ["Mumbai", "Chennai", "Goa", "Kochi"], answer: "chennai" },
+                { question: "Which city is known as the 'City of Pearls'?", options: ["Surat", "Hyderabad", "Jaipur", "Lucknow"], answer: "hyderabad" },
+                { question: "Which city is the capital of Uttar Pradesh?", options: ["Kanpur", "Lucknow", "Varanasi", "Agra"], answer: "lucknow" },
+                { question: "Which city is known for its textile industry and called 'Manchester of India'?", options: ["Ahmedabad", "Surat", "Coimbatore", "Ludhiana"], answer: "ahmedabad" }
+            ],
+            solveRiddle: [
+                { question: "I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?", options: ["a ghost", "an echo", "a dream", "a shadow"], answer: "an echo" },
+                { question: "The more you take, the more you leave behind. What am I?", options: ["money", "footprints", "time", "friends"], answer: "footprints" },
+                { question: "I’m tall when I’m young, and I’m short when I’m old. What am I?", options: ["a candle", "a pencil", "a tree", "a person"], answer: "a candle" },
+                { question: "What has keys but can’t open locks?", options: ["a piano", "a map", "a book", "a computer"], answer: "a piano" },
+                { question: "I have cities but no houses, forests but no trees, and rivers but no water. What am I?", options: ["a painting", "a map", "a dream", "a story"], answer: "a map" },
+                { question: "What can travel around the world while staying in a corner?", options: ["a letter", "a stamp", "an email", "a dream"], answer: "a stamp" },
+                { question: "What gets wetter the more it dries?", options: ["a towel", "a sponge", "a cloud", "a river"], answer: "a towel" },
+                { question: "I have branches, but no fruit, trunk, or leaves. What am I?", options: ["a bank", "a library", "a river", "a company"], answer: "a bank" },
+                { question: "What can you catch but not throw?", options: ["a ball", "a cold", "a fish", "a wave"], answer: "a cold" },
+                { question: "What has a neck but no head, a body but no legs, and arms but no hands?", options: ["a shirt", "a snake", "a bottle", "a statue"], answer: "a shirt" }
+            ],
+            birdLocations: [
+                { question: "Where is the Indian Peafowl primarily found?", options: ["South America", "India", "Australia", "Africa"], answer: "india" },
+                { question: "In which region is the Himalayan Monal commonly found?", options: ["Himalayas", "Sundarbans", "Western Ghats", "Thar Desert"], answer: "himalayas" },
+                { question: "Where can you find the Great Indian Bustard?", options: ["Andaman Islands", "Rajasthan", "Kerala", "Arunachal Pradesh"], answer: "rajasthan" },
+                { question: "Which region is home to the Sarus Crane?", options: ["Northern India", "Eastern India", "Southern India", "Western India"], answer: "northern india" },
+                { question: "Where is the Black-Necked Crane primarily found in India?", options: ["Ladakh", "Goa", "Tamil Nadu", "Odisha"], answer: "ladakh" },
+                { question: "In which wetland is the Siberian Crane a winter visitor?", options: ["Chilika Lake", "Keoladeo National Park", "Loktak Lake", "Vembanad Lake"], answer: "keoladeo national park" },
+                { question: "Where is the Nicobar Pigeon found?", options: ["Nicobar Islands", "Lakshadweep", "Gujarat", "Punjab"], answer: "nicobar islands" },
+                { question: "Which region hosts the Indian Skimmer?", options: ["Chambal River", "Brahmaputra River", "Godavari River", "Narmada River"], answer: "chambal river" },
+                { question: "Where can the White-bellied Heron be found in India?", options: ["Assam", "Karnataka", "Rajasthan", "Jharkhand"], answer: "assam" },
+                { question: "Which national park is a key habitat for the Bengal Florican?", options: ["Kaziranga National Park", "Jim Corbett National Park", "Sundarbans", "Ranthambore"], answer: "kaziranga national park" }
             ]
         };
 
